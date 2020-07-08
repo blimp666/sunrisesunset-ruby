@@ -19,14 +19,15 @@ def compute_sun_times(name, lat, lon, tz, year)
 end
 
 if __FILE__ == $0
-  year = Date.today.year
+  # year = Date.today.year
+  year = 2021
 
   cities_with_suntimes = Cities.all.map do |city|
     sun_times = compute_sun_times(city.name, city.lat, city.lon, city.tz, year)
     [city, sun_times]
   end
 
-  file = "suntimes.csv"
+  file = "suntimes/#{year}_suntimes.csv"
   CSV.open(file, "w") do |csv|
     csv << ["city", "timezone", "date", "sunrise", "sunset"]
 

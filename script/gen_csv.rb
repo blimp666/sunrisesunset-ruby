@@ -32,7 +32,7 @@ if __FILE__ == $0
 
     cities_with_suntimes.each do |city, sun_times|
       sun_times.each do |st|
-        csv << [city.name, city.tz, st.date, st.sunrise, st.sunset]
+        csv << [city.name, city.tz, st.date, st.sunrise.strftime("%H:%M"), st.sunset.strftime("%H:%M")]
       end
     end
   end

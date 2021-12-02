@@ -4,55 +4,55 @@ describe SolarEventCalculator, "Test the sunset algorithm" do
 
   before do
     @date = Date.parse('2008-11-01') #01 November 2008 (DST)
-    @calc = SolarEventCalculator.new(@date, BigDecimal.new("39.9537"), BigDecimal.new("-75.7850"))
+    @calc = SolarEventCalculator.new(@date, BigDecimal("39.9537"), BigDecimal("-75.7850"))
   end
 
   it "returns correct longitude hour" do
-    @calc.compute_lnghour.should eql(BigDecimal.new("-5.0523"))
+    @calc.compute_lnghour.should eql(BigDecimal("-5.0523"))
   end
 
   it "returns correct longitude hour" do
-    @calc.compute_longitude_hour(false).should eql(BigDecimal.new("306.9605"))
+    @calc.compute_longitude_hour(false).should eql(BigDecimal("306.9605"))
   end
 
   it "returns correct sunset mean anomaly" do
-    @calc.compute_sun_mean_anomaly(BigDecimal.new("306.9605")).should eql(BigDecimal.new("299.2513"))
+    @calc.compute_sun_mean_anomaly(BigDecimal("306.9605")).should eql(BigDecimal("299.2513"))
   end
 
   it "returns correct sunset's sun true longitude" do
-    @calc.compute_sun_true_longitude(BigDecimal.new("299.2513")).should eql(BigDecimal.new("220.1966"))
+    @calc.compute_sun_true_longitude(BigDecimal("299.2513")).should eql(BigDecimal("220.1966"))
   end
 
   it "returns correct sunset's right ascension" do
-    @calc.compute_right_ascension(BigDecimal.new("220.1966")).should eql(BigDecimal.new("37.7890"))
+    @calc.compute_right_ascension(BigDecimal("220.1966")).should eql(BigDecimal("37.7890"))
   end
 
   it "returns correct sunset's right ascension quadrant" do
-    @calc.put_ra_in_correct_quadrant(BigDecimal.new("220.1966")).should eql(BigDecimal.new("14.5193"))
+    @calc.put_ra_in_correct_quadrant(BigDecimal("220.1966")).should eql(BigDecimal("14.5193"))
   end
 
   it "returns correct sunset sin sun declination" do
-    @calc.compute_sin_sun_declination(BigDecimal.new("220.1966")).should eql(BigDecimal.new("-0.2568"))
+    @calc.compute_sin_sun_declination(BigDecimal("220.1966")).should eql(BigDecimal("-0.2568"))
   end
 
   it "returns correct sunset cosine sun declination" do
-    @calc.compute_cosine_sun_declination(BigDecimal.new("-0.2541")).should eql(BigDecimal.new("0.9672"))
+    @calc.compute_cosine_sun_declination(BigDecimal("-0.2541")).should eql(BigDecimal("0.9672"))
   end
 
   it "returns correct sunset cosine sun local hour" do
-    @calc.compute_cosine_sun_local_hour(BigDecimal.new("220.1966"), 96).should eql(BigDecimal.new("0.0815"))
+    @calc.compute_cosine_sun_local_hour(BigDecimal("220.1966"), 96).should eql(BigDecimal("0.0815"))
   end
 
   it "returns correct sunset local hour angle" do
-    @calc.compute_local_hour_angle(BigDecimal.new("0.0815"), false).should eql(BigDecimal.new("5.6883"))
+    @calc.compute_local_hour_angle(BigDecimal("0.0815"), false).should eql(BigDecimal("5.6883"))
   end
 
   it "returns correct sunset local mean time" do
-    trueLong = BigDecimal.new("220.1966")
-    longHour = BigDecimal.new("-5.0523")
-    localHour = BigDecimal.new("5.6883")
-    t = BigDecimal.new("306.9605")
-    @calc.compute_local_mean_time(trueLong, longHour, t, localHour).should eql(BigDecimal.new("22.4675"))
+    trueLong = BigDecimal("220.1966")
+    longHour = BigDecimal("-5.0523")
+    localHour = BigDecimal("5.6883")
+    t = BigDecimal("306.9605")
+    @calc.compute_local_mean_time(trueLong, longHour, t, localHour).should eql(BigDecimal("22.4675"))
   end
 
   it "returns correct UTC civil sunset time" do
@@ -93,13 +93,13 @@ describe SolarEventCalculator, "test the math for areas where the sun doesn't se
 
   it "returns correct time" do
     date = Date.parse('2008-04-25') #25 April 2008
-    calc = SolarEventCalculator.new(date, BigDecimal.new("64.8378"), BigDecimal.new("-147.7164"))
+    calc = SolarEventCalculator.new(date, BigDecimal("64.8378"), BigDecimal("-147.7164"))
     calc.compute_utc_nautical_sunset.should eql(nil)
   end
 
   it "returns correct time" do
     date = Date.parse('2008-04-25') #25 April 2008
-    calc = SolarEventCalculator.new(date, BigDecimal.new("64.8378"), BigDecimal.new("-147.7164"))
+    calc = SolarEventCalculator.new(date, BigDecimal("64.8378"), BigDecimal("-147.7164"))
     calc.compute_utc_nautical_sunset.should eql(nil)
   end
 end

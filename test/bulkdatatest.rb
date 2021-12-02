@@ -11,14 +11,14 @@ describe SolarEventCalculator, "Test the sunset algorithm" do
     latString = nameParts[0].split('-')[0].sub!('_', '.')
     longString = nameParts[0].split('-')[1].sub!('_', '.')
 
-    latitude = BigDecimal.new(latString.chop)
-    longitude = BigDecimal.new(longString.chop)
+    latitude = BigDecimal(latString.chop)
+    longitude = BigDecimal(longString.chop)
     if latString.end_with?('S')
-      latitude = BigDecimal.new("0") - latitude
+      latitude = BigDecimal("0") - latitude
     end
 
     if longString.end_with?('W')
-      longitude = BigDecimal.new("0") - longitude
+      longitude = BigDecimal("0") - longitude
     end
 
     tz = TZInfo::Timezone.get(timeZone)
@@ -26,8 +26,8 @@ describe SolarEventCalculator, "Test the sunset algorithm" do
 
     dataFile.readlines.each do |dataLine|
       parts = dataLine.split(',')
-      date = Date.parse(parts.shift)
-      calc = SolarEventCalculator.new(date, BigDecimal.new("39.9937"), BigDecimal.new("-75.7850"))
+      date = Date.strptime(parts.shift.to_s, '%m/%d/%Y')
+      calc = SolarEventCalculator.new(date, BigDecimal("39.9937"), BigDecimal("-75.7850"))
 
       time = parts[0].split(':')
       expectedAstronomicalRise = put_in_timezone(date, time[0], time[1], timeZone)
@@ -82,7 +82,7 @@ def get_utc_offset(date, timezone)
   offset = (offset  > 0) ? "+" + offset.to_s : offset.to_s
 end
 
-Spec::Matchers.define :be_close_to do |expected, type|
+RSpec::Matchers.define :be_close_to do |expected, type|
   match do |actual|
     if expected != nil && actual != nil
       (expected - 61) < actual && actual < (expected + 61)

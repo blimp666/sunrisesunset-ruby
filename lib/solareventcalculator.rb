@@ -194,10 +194,10 @@ class SolarEventCalculator
   def put_in_timezone(utcTime, timezone)
     tz = TZInfo::Timezone.get(timezone)
     # puts "UTCTime #{utcTime}"
-    local = utcTime + get_utc_offset(timezone)
+    local = utcTime + get_utc_offset(timezone, utcTime)
     # puts "LocalTime #{local}"
 
-    offset = (get_utc_offset(timezone) / 60 / 60).to_i
+    offset = (get_utc_offset(timezone, utcTime) / 60 / 60).to_i
     offset = (offset > 0) ? "+" + offset.to_s : offset.to_s
 
     timeInZone = DateTime.parse("#{@date.strftime}T#{local.strftime('%H:%M:%S')}#{offset}")
@@ -205,10 +205,10 @@ class SolarEventCalculator
     timeInZone
   end
 
-  def get_utc_offset(timezone)
+  def get_utc_offset(timezone, utc_time)
     tz = TZInfo::Timezone.get(timezone)
-    noonUTC = Time.gm(@date.year, @date.mon, @date.mday, 12, 0)
-    tz.utc_to_local(noonUTC) - noonUTC
+    period = tz.period_for_local(utc_time)
+    period.offset.utc_total_offset
   end
 
   def pad_minutes(minutes)

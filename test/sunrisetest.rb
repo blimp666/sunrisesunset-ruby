@@ -72,19 +72,19 @@ describe SolarEventCalculator, "test the math for home" do
   end
 
   it "returns correct 'America/New_York' official sunrise time" do
-    @calc.compute_official_sunrise('America/New_York').should eql(DateTime.parse("#{@date.strftime}T07:33:00-04:00"))
+    @calc.compute_official_sunrise('America/New_York').to_s.should eql("#{@date.strftime}T07:33:00-04:00")
   end
 
   it "returns correct 'America/New_York' civil sunrise time" do
-    @calc.compute_civil_sunrise('America/New_York').should eql(DateTime.parse("#{@date.strftime}T07:04:00-04:00"))
+    @calc.compute_civil_sunrise('America/New_York').to_s.should eql("#{@date.strftime}T07:04:00-04:00")
   end
 
   it "returns correct 'America/New_York' nautical sunrise time" do
-    @calc.compute_nautical_sunrise('America/New_York').should eql(DateTime.parse("#{@date.strftime}T06:32:00-04:00"))
+    @calc.compute_nautical_sunrise('America/New_York').to_s.should eql("#{@date.strftime}T06:32:00-04:00")
   end
 
   it "returns correct 'America/New_York' astronomical sunrise time" do
-    @calc.compute_astronomical_sunrise('America/New_York').should eql(DateTime.parse("#{@date.strftime}T06:01:00-04:00"))
+    @calc.compute_astronomical_sunrise('America/New_York').to_s.should eql("#{@date.strftime}T06:01:00-04:00")
   end
 end
 

@@ -102,3 +102,13 @@ describe SolarEventCalculator, "test the math for areas where there could be no 
     calc.compute_utc_nautical_sunrise.should eql(nil)
   end
 end
+
+describe SolarEventCalculator, "test for timezone where UTC offset has been changed" do
+  it "returns correct time on the date when UTC offset has been changed" do
+    date = Date.parse('2016-03-27')
+    tz = 'Europe/Ulyanovsk'
+    calc = SolarEventCalculator.new(date, BigDecimal("48.1644"), BigDecimal("48.285"))
+    calc.compute_civil_sunrise(tz).to_s.should eql("#{date.strftime}T06:03:00+04:00")
+  end
+
+end

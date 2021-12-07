@@ -207,7 +207,7 @@ class SolarEventCalculator
 
   def get_utc_offset(timezone, utc_time)
     tz = TZInfo::Timezone.get(timezone)
-    period = tz.period_for_local(utc_time)
+    period = tz.period_for_utc(utc_time)
     period.offset.utc_total_offset
   end
 
